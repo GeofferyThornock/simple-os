@@ -43,11 +43,11 @@ $(LIBS) \
 .PHONY: all clean install install-headers install-kernel
 .SUFFIXES: .o .c .asm
 
-all: myos.kernel
+all: primusos.kernel
 
-myos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
+primusos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
-	grub-file --is-x86-multiboot myos.kernel
+	grub-file --is-x86-multiboot primusos.kernel
 
 .c.o:
 	$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
@@ -56,7 +56,7 @@ myos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
 	nasm -felf32 $< -o $@
 
 clean:
-	rm -f myos.kernel
+	rm -f primusos.kernel
 	rm -f $(OBJS) *.o */*.o */*/*.o
 	rm -f $(OBJS:.o=.d) *.d */*.d */*/*.d
 
@@ -66,9 +66,9 @@ install-headers:
 	mkdir -p $(DESTDIR)$(INCLUDEDIR)
 	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/.
 
-install-kernel: myos.kernel
+install-kernel: primusos.kernel
 	mkdir -p $(DESTDIR)$(BOOTDIR)
-	cp myos.kernel $(DESTDIR)$(BOOTDIR)
+	cp primusos.kernel $(DESTDIR)$(BOOTDIR)
 
 -include $(OBJS:.o=.d)
 
