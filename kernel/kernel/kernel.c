@@ -4,6 +4,8 @@
 
 void kernel_main(void) {
 	terminal_initialize();
-    printf("This is a test of the printf function");
+    char test[] = "string part of print f";
+    printf("This is a test of the printf function\n");
+    printf("%s", test);
 }
 

@@ -57,7 +57,7 @@ int printf(const char* restrict format, ...){
             if (maxrem < len){
                 return -1;
             }
-            if (!print(format, len))
+            if (!print(str, len))
                 return -1;
             written += len;
         } else {
