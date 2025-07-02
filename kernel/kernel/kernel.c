@@ -6,12 +6,10 @@
  
 
 void kernel_main(void) {
-
-
-
     gdt_init();
 
 	terminal_initialize();
+
     printf("This is a test of the printf function\n");
 }
 
