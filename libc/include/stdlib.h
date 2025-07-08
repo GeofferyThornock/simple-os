@@ -1,5 +1,8 @@
 #ifndef _STDLIB_H
 #define _STDLIB_H 1
+#define bool int
+#define false 0
+#define true 1
 
 #include <sys/cdefs.h>
 
