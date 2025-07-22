@@ -1,4 +1,3 @@
-
 MBALIGN     equ     1 << 0             ; align loaded modules on page boundries
 MEMINFO     equ     1 << 1             ; provide memory map
 MBFLAGS     equ     MBALIGN | MEMINFO ; this is the multiboot 'flag' field
