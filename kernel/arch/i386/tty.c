@@ -29,6 +29,26 @@ void terminal_initialize(void) {
 	}
 }
 
+void scroll(){
+    uint16_t atrByte = (0 << 4) | (15 & 0x0F);
+    uint16_t blank = 0x20 | (atrByte << 8);
+
+
+
+    if (terminal_row >= 25){
+        int i;
+        for(i = 0*80; i < 25*80; i++){
+            VGA_MEMORY[i] = VGA_MEMORY[i+80];
+        }
+
+        for(i = 24*80; i < 25*80; i++){
+            VGA_MEMORY[i] = blank;
+        }
+
+        terminal_row = 24;
+    }
+}
+
 void terminal_setcolor(uint8_t color) {
 	terminal_color = color;
 }
@@ -47,10 +67,9 @@ void terminal_putchar(char c) {
         terminal_putentryat(uc, terminal_color, terminal_column, terminal_row);
         if (++terminal_column == VGA_WIDTH) {
             terminal_column = 0;
-            if (++terminal_row == VGA_HEIGHT)
-                terminal_row = 0;
         }
     }
+    scroll();
 }
 
 void terminal_write(const char* data, size_t size) {
