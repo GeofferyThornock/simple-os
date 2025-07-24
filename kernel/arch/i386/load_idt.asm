@@ -1,18 +1,22 @@
-%macro isr_err_stub 1
-isr_stub_%+%1:
-    call    exception_handler
-    iret
+%macro isr_no_err_stub 1
+[GLOBAL isr%1]
+isr%1:
+    cli
+    push byte 0
+    push byte %1
+    jmp isr_common_stub
 %endmacro
 
-%macro isr_no_err_stub 1
-isr_stub_%+%1:
-    call    exception_handler
-    iret
+%macro isr_err_stub 1
+[GLOBAL isr%1]
+isr%1:
+    cli
+    push byte %1
+    jmp isr_common_stub
 %endmacro
 
 
 ;   initilize all 32 exception handlers
-extern exception_handler
 isr_no_err_stub 0
 isr_no_err_stub 1
 isr_no_err_stub 2
@@ -46,12 +50,39 @@ isr_no_err_stub 29
 isr_err_stub    30
 isr_no_err_stub 31
 
+[GLOBAL idt_flush]
+idt_flush:
+mov     eax, [esp+4]
+lidt    [eax]
+ret
 
 
-global isr_stub_table
-isr_stub_table:
-%assign i 0 
-%rep    32 
-    dd isr_stub_%+i ; use DQ instead if targeting 64-bit
-    %assign i i+1 
-%endrep
+[EXTERN isr_handler]
+isr_common_stub:
+    pusha
+
+    mov     ax, ds
+    push    eax
+
+    mov     ax, 0x10
+    mov     ds, ax
+    mov     es, ax
+    mov     fs, ax
+    mov     gs, ax
+
+    call    isr_handler
+
+    pop     eax
+    mov     ds, ax
+    mov     es, ax
+    mov     fs, ax
+    mov     gs, ax
+
+    popa
+    add     esp, 8
+    sti
+    iret
+
+
+
+

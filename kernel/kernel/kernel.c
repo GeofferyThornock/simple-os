@@ -8,10 +8,10 @@
 void kernel_main(void) {
     gdt_init();
     idt_init();
-    extern void test1();
 
 	terminal_initialize();
-
     printf("This is a test of the printf function\n");
+    asm volatile("int $0x03");
+    asm volatile("int $0x4");
 }
 
