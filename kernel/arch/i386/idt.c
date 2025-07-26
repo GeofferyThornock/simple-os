@@ -5,9 +5,10 @@
 #include <kernel/tty.h>
 
 void isr_handler(registers_t regs){
-    uint32_t isr = regs.err_code;
-    
-    printf("recieved input: %s\n", isr);
+    char* str = NULL;
+    itoa(regs.int_no, str, 16);
+
+    puts(str);
 }
 
 

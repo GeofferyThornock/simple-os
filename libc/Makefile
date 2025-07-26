@@ -38,6 +38,7 @@ string/memset.o \
 stdio/printf.o \
 stdio/putchar.o \
 stdio/puts.o \
+stdio/itoa.o
 
 HOSTEDOBJS=\
 $(ARCH_HOSTEDOBJS) \

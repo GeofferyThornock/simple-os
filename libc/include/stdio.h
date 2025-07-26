@@ -8,5 +8,6 @@
 int printf(const char* __restrict, ...);
 int putchar(int);
 int puts(const char*);
+char* itoa(int value, char * str, int base);
 
 #endif

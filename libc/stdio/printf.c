@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define is_digit(c)	((c) >= '0' && (c) <= '9')
+
 static bool print(const char* data, size_t length){
     const unsigned char* bytes = (const unsigned char*) data;
     for(size_t i = 0; i < length; i++)
@@ -11,6 +13,8 @@ static bool print(const char* data, size_t length){
             return false;
     return true;
 }
+
+char* itoa();
 
 
 int printf(const char* restrict format, ...){
@@ -51,14 +55,21 @@ int printf(const char* restrict format, ...){
                 return -1;
             written++;
         }else if (*format == 's'){
+
             format++;
+
             const char* str = va_arg(parameters, const char*);
+
             size_t len = strlen(str);
+
             if (maxrem < len){
                 return -1;
             }
-            if (!print(str, len))
+
+            if (!print(str, len)){
                 return -1;
+            }
+
             written += len;
         } else {
             format = format_begun_at;
