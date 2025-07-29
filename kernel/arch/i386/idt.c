@@ -61,6 +61,24 @@ void idt_init(){
     idt_set_gate(30, (uint32_t)isr30, 0x8E);
     idt_set_gate(31, (uint32_t)isr31, 0x8E);
 
+    idt_set_gate(32, (uint32_t)irq0, 0x8E); // Timer
+    idt_set_gate(33, (uint32_t)irq1, 0x8E); // Keyboard
+    idt_set_gate(34, (uint32_t)irq2, 0x8E); // Cascade
+    idt_set_gate(35, (uint32_t)irq3, 0x8E); // COM2
+    idt_set_gate(36, (uint32_t)irq4, 0x8E); // COM1
+    idt_set_gate(37, (uint32_t)irq5, 0x8E); // LPT2 / Sound
+    idt_set_gate(38, (uint32_t)irq6, 0x8E); // Floppy
+    idt_set_gate(39, (uint32_t)irq7, 0x8E); // LPT1 / Spurious
+    idt_set_gate(40, (uint32_t)irq8, 0x8E); // Real-Time Clock
+    idt_set_gate(41, (uint32_t)irq9, 0x8E); // ACPI / Redirected IRQ2
+    idt_set_gate(42, (uint32_t)irq10, 0x8E); // Free / Network
+    idt_set_gate(43, (uint32_t)irq11, 0x8E); // Free / General
+    idt_set_gate(44, (uint32_t)irq12, 0x8E); // PS/2 Mouse
+    idt_set_gate(45, (uint32_t)irq13, 0x8E); // FPU / Math Co-Processor
+    idt_set_gate(46, (uint32_t)irq14, 0x8E); // Primary ATA Hard Disk
+    idt_set_gate(47, (uint32_t)irq15, 0x8E); // Secondary ATA Hard Disk
+
+
 
     idt_flush((uint32_t)&idtr);
 };
