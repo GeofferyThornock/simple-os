@@ -1,8 +1,17 @@
 #include <kernel/io.h>
 #include <kernel/isr.h>
 #include <stdint.h>
+#include <stdio.h>
 
 isr_t interrupt_handlers[256];
+
+
+void isr_handler(registers_t regs){
+    char* str;
+    itoa(regs.int_no, str, 16);
+
+    puts(str);
+}
  
 void irq_handler(registers_t regs){
     if(regs.int_no >= 40){
