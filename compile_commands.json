@@ -130,6 +130,29 @@
       "-Iinclude",
       "-D__is_libk",
       "-o",
+      "stdlib/abort.libk.o",
+      "stdlib/abort.c"
+    ],
+    "directory": "/home/geoff/dev/simple-os/libc",
+    "file": "/home/geoff/dev/simple-os/libc/stdlib/abort.c",
+    "output": "/home/geoff/dev/simple-os/libc/stdlib/abort.libk.o"
+  },
+  {
+    "arguments": [
+      "/home/geoff/opt/cross/bin/i686-elf-gcc",
+      "--sysroot=/home/geoff/dev/simple-os/sysroot",
+      "-isystem=/usr/include",
+      "-c",
+      "-std=gnu11",
+      "-O2",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-D__is_libc",
+      "-Iinclude",
+      "-D__is_libk",
+      "-o",
       "stdio/printf.libk.o",
       "stdio/printf.c"
     ],
@@ -195,6 +218,29 @@
       "-ffreestanding",
       "-Wall",
       "-Wextra",
+      "-D__is_libc",
+      "-Iinclude",
+      "-D__is_libk",
+      "-o",
+      "stdio/itoa.libk.o",
+      "stdio/itoa.c"
+    ],
+    "directory": "/home/geoff/dev/simple-os/libc",
+    "file": "/home/geoff/dev/simple-os/libc/stdio/itoa.c",
+    "output": "/home/geoff/dev/simple-os/libc/stdio/itoa.libk.o"
+  },
+  {
+    "arguments": [
+      "/home/geoff/opt/cross/bin/i686-elf-gcc",
+      "--sysroot=/home/geoff/dev/simple-os/sysroot",
+      "-isystem=/usr/include",
+      "-c",
+      "-std=gnu11",
+      "-O2",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
       "-D__is_kernel",
       "-Iinclude",
       "-o",
@@ -226,6 +272,116 @@
     "directory": "/home/geoff/dev/simple-os/kernel",
     "file": "/home/geoff/dev/simple-os/kernel/arch/i386/gdt.c",
     "output": "/home/geoff/dev/simple-os/kernel/arch/i386/gdt.o"
+  },
+  {
+    "arguments": [
+      "/home/geoff/opt/cross/bin/i686-elf-gcc",
+      "--sysroot=/home/geoff/dev/simple-os/sysroot",
+      "-isystem=/usr/include",
+      "-c",
+      "-std=gnu11",
+      "-O2",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-D__is_kernel",
+      "-Iinclude",
+      "-o",
+      "arch/i386/idt.o",
+      "arch/i386/idt.c"
+    ],
+    "directory": "/home/geoff/dev/simple-os/kernel",
+    "file": "/home/geoff/dev/simple-os/kernel/arch/i386/idt.c",
+    "output": "/home/geoff/dev/simple-os/kernel/arch/i386/idt.o"
+  },
+  {
+    "arguments": [
+      "/home/geoff/opt/cross/bin/i686-elf-gcc",
+      "--sysroot=/home/geoff/dev/simple-os/sysroot",
+      "-isystem=/usr/include",
+      "-c",
+      "-std=gnu11",
+      "-O2",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-D__is_kernel",
+      "-Iinclude",
+      "-o",
+      "arch/i386/isr.o",
+      "arch/i386/isr.c"
+    ],
+    "directory": "/home/geoff/dev/simple-os/kernel",
+    "file": "/home/geoff/dev/simple-os/kernel/arch/i386/isr.c",
+    "output": "/home/geoff/dev/simple-os/kernel/arch/i386/isr.o"
+  },
+  {
+    "arguments": [
+      "/home/geoff/opt/cross/bin/i686-elf-gcc",
+      "--sysroot=/home/geoff/dev/simple-os/sysroot",
+      "-isystem=/usr/include",
+      "-c",
+      "-std=gnu11",
+      "-O2",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-D__is_kernel",
+      "-Iinclude",
+      "-o",
+      "arch/i386/io.o",
+      "arch/i386/io.c"
+    ],
+    "directory": "/home/geoff/dev/simple-os/kernel",
+    "file": "/home/geoff/dev/simple-os/kernel/arch/i386/io.c",
+    "output": "/home/geoff/dev/simple-os/kernel/arch/i386/io.o"
+  },
+  {
+    "arguments": [
+      "/home/geoff/opt/cross/bin/i686-elf-gcc",
+      "--sysroot=/home/geoff/dev/simple-os/sysroot",
+      "-isystem=/usr/include",
+      "-c",
+      "-std=gnu11",
+      "-O2",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-D__is_kernel",
+      "-Iinclude",
+      "-o",
+      "arch/i386/pic.o",
+      "arch/i386/pic.c"
+    ],
+    "directory": "/home/geoff/dev/simple-os/kernel",
+    "file": "/home/geoff/dev/simple-os/kernel/arch/i386/pic.c",
+    "output": "/home/geoff/dev/simple-os/kernel/arch/i386/pic.o"
+  },
+  {
+    "arguments": [
+      "/home/geoff/opt/cross/bin/i686-elf-gcc",
+      "--sysroot=/home/geoff/dev/simple-os/sysroot",
+      "-isystem=/usr/include",
+      "-c",
+      "-std=gnu11",
+      "-O2",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-D__is_kernel",
+      "-Iinclude",
+      "-o",
+      "arch/i386/timer.o",
+      "arch/i386/timer.c"
+    ],
+    "directory": "/home/geoff/dev/simple-os/kernel",
+    "file": "/home/geoff/dev/simple-os/kernel/arch/i386/timer.c",
+    "output": "/home/geoff/dev/simple-os/kernel/arch/i386/timer.o"
   },
   {
     "arguments": [

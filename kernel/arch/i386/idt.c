@@ -1,4 +1,5 @@
 #include <kernel/idt.h>
+#include <kernel/pic.h>
 #include <stdint.h>
 #include <string.h>
 #include <kernel/tty.h>
@@ -20,6 +21,9 @@ void idt_init(){
     idtr.limit = (uint16_t)sizeof(idt_entry_t) * IDT_MAX_DESCRIPTORS - 1;
 
     memset(&idt, 0, sizeof(idt_entry_t)*256);
+
+
+    PIC_remap(0x20, 0x28);
 
     idt_set_gate(0,  (uint32_t)isr0,  0x8E);
     idt_set_gate(1,  (uint32_t)isr1,  0x8E);
