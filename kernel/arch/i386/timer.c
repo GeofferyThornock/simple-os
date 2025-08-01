@@ -5,17 +5,14 @@
 #include <stdio.h>
 
 
-uint32_t tick = 0;
-
+int tick = 0;
 static void timer_callback(registers_t regs){
     tick++;
-    printf("test");
-
+    print_dec(tick);
 }
 
 void init_timer(uint32_t frequency){
-    register_interrupt_handler(32, &timer_callback);
-    printf("init timer\n");
+    register_interrupt_handler(IRQ0, &timer_callback);
 
     uint32_t divisor = 1193180 / frequency;
 

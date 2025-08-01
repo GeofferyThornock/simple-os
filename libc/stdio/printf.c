@@ -14,8 +14,6 @@ static bool print(const char* data, size_t length){
     return true;
 }
 
-char* itoa();
-
 
 int printf(const char* restrict format, ...){
     va_list parameters;

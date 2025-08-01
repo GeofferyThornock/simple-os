@@ -2,9 +2,10 @@
  * Global Descriptor Table(GDT) setup
  */
 #include <kernel/gdt.h>
+#include <stdio.h>
 
 
-GDT g_gdt[NO_GDT_DESCRIPTORS];
+GDT g_gdt[5];
 GDT_PTR g_gdt_ptr;
 
 /**
@@ -13,21 +14,21 @@ GDT_PTR g_gdt_ptr;
 void gdt_set_entry(int index, uint32_t base, uint32_t limit, uint8_t access, uint8_t gran) {
     GDT *this = &g_gdt[index];
 
-    this->segment_limit = limit & 0xFFFF;
     this->base_low = base & 0xFFFF;
     this->base_middle = (base >> 16) & 0xFF;
-    this->access = access;
+    this->base_high = (base >> 24) & 0xFF;
 
+    this->segment_limit = (limit & 0xFFFF);
     this->granularity = (limit >> 16) & 0x0F;
-    this->granularity = this->granularity | (gran & 0xF0);
 
-    this->base_high = (base >> 24 & 0xFF);
+    this->granularity |= gran & 0xF0;
+    this->access = access;
 }
 
 // initialize GDT
 void gdt_init() {
     g_gdt_ptr.limit = sizeof(g_gdt) - 1;
-    g_gdt_ptr.base_address = (uint32_t)g_gdt;
+    g_gdt_ptr.base_address = (uint32_t)&g_gdt;
 
     // NULL segment
     gdt_set_entry(0, 0, 0, 0, 0);

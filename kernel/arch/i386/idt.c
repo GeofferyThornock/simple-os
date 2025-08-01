@@ -3,25 +3,26 @@
 #include <stdint.h>
 #include <string.h>
 #include <kernel/tty.h>
+#include <kernel/io.h>
 
 void idt_set_gate(uint8_t vector, uint32_t isr, uint8_t flags){
     idt_entry_t* descriptor = &idt[vector];
 
-    descriptor->isr_low     = (uint32_t)isr & 0xFFFF;
+    descriptor->isr_low     = isr & 0xFFFF;
+    descriptor->isr_high    = (isr >> 16) & 0xFFFF;
+    
     descriptor->kernel_cs   = 0x08;
-    descriptor->attributes  = flags;
-    descriptor->isr_high    = (uint32_t)isr >> 16;
     descriptor->reserved    = 0;
 
+    descriptor->attributes  = flags;
 }
 
 void idt_init(){
 
     idtr.base = (uintptr_t)&idt[0];
-    idtr.limit = (uint16_t)sizeof(idt_entry_t) * IDT_MAX_DESCRIPTORS - 1;
+    idtr.limit = sizeof(idt_entry_t) * 256 - 1;
 
     memset(&idt, 0, sizeof(idt_entry_t)*256);
-
 
     PIC_remap(0x20, 0x28);
 

@@ -37,3 +37,37 @@ char * itoa(int value, char * str, int base ) {
     }
     return rc;
 }
+
+void print_hex(int value){
+    char* result = 0;
+    itoa(value, result, 16);
+    printf("0x%s\n", result);
+
+}
+
+void print_dec(uint32_t value){
+    
+    if(value == 0){
+        printf("0");
+        return;
+    }
+
+    signed int n = value;
+    char c[32];
+    int i = 0;
+    while(n > 0){
+        c[i] = '0' + n%10;
+        n /= 10;
+        i++;
+    }
+    c[i] = 0;
+
+    char c2[32];
+    c2[i--] = 0;
+    int j = 0;
+    while(i >= 0){
+        c2[i--] = c[j++];
+    }
+
+    puts(c2);
+}

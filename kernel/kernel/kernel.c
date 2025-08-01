@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <kernel/isr.h>
+#include <kernel/pic.h>
 #include <kernel/tty.h>
 #include <kernel/gdt.h>
 #include <kernel/timer.h>
@@ -17,14 +18,13 @@ void init_descriptors(){
 
 void kernel_main(void) {
     init_descriptors();
-
 	terminal_initialize();
-    printf("This is a test of the printf function\n");
     
     asm volatile("int $0x3");
     asm volatile("int $0x4");
 
     asm volatile("sti");
+    IRQ_set_mask(32);
     init_timer(50);
 }
 

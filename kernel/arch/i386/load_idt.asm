@@ -52,9 +52,9 @@ isr_no_err_stub 31
 
 [GLOBAL idt_flush]
 idt_flush:
-mov     eax, [esp+4]
-lidt    [eax]
-ret
+    mov     eax, [esp+4]
+    lidt    [eax]
+    ret
 
 
 [EXTERN isr_handler]
