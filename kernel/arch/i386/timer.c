@@ -8,6 +8,7 @@
 int tick = 0;
 static void timer_callback(registers_t regs){
     tick++;
+    printf("Tick: ");
     print_dec(tick);
 }
 

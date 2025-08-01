@@ -19,12 +19,10 @@ void init_descriptors(){
 void kernel_main(void) {
     init_descriptors();
 	terminal_initialize();
-    
-    asm volatile("int $0x3");
-    asm volatile("int $0x4");
+
+    printf("test");
 
     asm volatile("sti");
-    IRQ_set_mask(32);
     init_timer(50);
 }
 

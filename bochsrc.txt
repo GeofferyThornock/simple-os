@@ -1,0 +1,17 @@
+# We give our system 32 Mb of RAM.
+megs: 32
+
+# This emulates a physical device and loads our bootable IMG file into that device.
+ata0-slave: type=cdrom, path=primusos.iso, status=inserted
+
+# We specify to boot from floppya.
+boot: cdrom
+
+# Logfile
+log: bochsout.txt
+
+#enables debugger
+display_library: x, options="gui_debug"
+
+# We don't need mouse emulation
+mouse: enabled=0

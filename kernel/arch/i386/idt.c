@@ -5,16 +5,16 @@
 #include <kernel/tty.h>
 #include <kernel/io.h>
 
+
 void idt_set_gate(uint8_t vector, uint32_t isr, uint8_t flags){
-    idt_entry_t* descriptor = &idt[vector];
 
-    descriptor->isr_low     = isr & 0xFFFF;
-    descriptor->isr_high    = (isr >> 16) & 0xFFFF;
-    
-    descriptor->kernel_cs   = 0x08;
-    descriptor->reserved    = 0;
+   idt[vector].isr_low     = isr & 0xFFFF;
+   idt[vector].isr_high    = (isr >> 16) & 0xFFFF;
 
-    descriptor->attributes  = flags;
+   idt[vector].kernel_cs   = 0x08;
+   idt[vector].reserved    = 0;
+
+   idt[vector].attributes  = flags;
 }
 
 void idt_init(){
