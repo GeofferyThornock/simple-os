@@ -3,6 +3,8 @@
 
 void keyboard_callback();
 
+void kb_buf_read();
+
 void init_kb();
 
 #endif
