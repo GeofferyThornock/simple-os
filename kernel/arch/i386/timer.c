@@ -1,6 +1,7 @@
 #include <kernel/timer.h>
 #include <kernel/io.h>
 #include <kernel/isr.h>
+#include <kernel/pic.h>
 #include <stdint.h>
 #include <stdio.h>
 
@@ -10,6 +11,7 @@ static void timer_callback(registers_t regs){
     tick++;
     printf("Tick: ");
     print_dec(tick);
+    PIC_sendEOI(32);
 }
 
 void init_timer(uint32_t frequency){
