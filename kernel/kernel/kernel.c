@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <kernel/isr.h>
+#include <kernel/keyboard.h>
 #include <kernel/pic.h>
 #include <kernel/tty.h>
 #include <kernel/gdt.h>
@@ -20,9 +21,9 @@ void kernel_main(void) {
     init_descriptors();
 	terminal_initialize();
 
-    printf("test");
-
     asm volatile("sti");
     init_timer(50);
+
+    init_kb();
 }
 
