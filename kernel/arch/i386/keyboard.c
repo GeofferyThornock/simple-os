@@ -17,6 +17,8 @@ void keyboard_callback(){
 
 void init_kb(){
     register_interrupt_handler(IRQ1, &keyboard_callback);
+
+    outb(0xED, 2); // setting caps lock LED to on to test
 }
 
 
