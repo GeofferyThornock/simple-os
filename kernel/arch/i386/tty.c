@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
+#include <kernel/io.h>
 
 #include <kernel/tty.h>
 
@@ -16,6 +17,26 @@ static size_t terminal_column;
 static uint8_t terminal_color;
 static uint16_t* terminal_buffer;
 
+
+void enable_cursor(uint8_t cursor_start, uint8_t cursor_end)
+{
+    outb(0x3D4, 0x0A);
+    outb(0x3D5, (inb(0x3D5) & 0xC0) | cursor_start);
+
+    outb(0x3D4, 0x0B);
+    outb(0x3D5, (inb(0x3D5) & 0xE0) | cursor_end);
+}
+
+void update_cursor(int x, int y)
+{
+	uint16_t pos = y * VGA_WIDTH + x;
+
+	outb(0x3D4, 0x0F);
+	outb(0x3D5, (uint8_t) (pos & 0xFF));
+	outb(0x3D4, 0x0E);
+	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
+}
+
 void terminal_initialize(void) {
 	terminal_row = 0;
 	terminal_column = 0;
@@ -27,7 +48,9 @@ void terminal_initialize(void) {
 			terminal_buffer[index] = vga_entry(' ', terminal_color);
 		}
 	}
+    enable_cursor(0, 1);
 }
+
 
 void scroll(){
     uint16_t atrByte = (0 << 4) | (15 & 0x0F);
@@ -70,6 +93,7 @@ void terminal_putchar(char c) {
         }
     }
     scroll();
+    update_cursor(terminal_column, terminal_row + 1);
 }
 
 void terminal_write(const char* data, size_t size) {
