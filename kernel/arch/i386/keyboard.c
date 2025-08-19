@@ -3,6 +3,7 @@
 #include <kernel/io.h>
 #include <stdio.h>
 #include <kernel/keyboard.h>
+#include <stdlib.h>
 
 /*
 char scancode_list[128] = {
@@ -273,7 +274,7 @@ char scancode_list[128] = {
 };
 
 // Alternative array for shifted characters (when Shift is pressed) - Dvorak Layout
-char scancode_list_shifted[128] = {
+char scancode_shifted[128] = {
     0x00, // 0x00 - Invalid
     0x00, // 0x01 - Escape
     '!',  // 0x02 - 1 -> !
@@ -347,22 +348,39 @@ char scancode_list_shifted[128] = {
 char kb_buffer[256];
 int kb_write_buf_pntr = 0;
 int kb_read_buf_pntr = 0;
+bool shifted = 0;
 
 
 void keyboard_callback(){
     PIC_sendEOI(IRQ1);
 
+    // Ox2A left shift
+
     int k = inb(0x60);
 
     if((k & 128) == 128){
-
+        if (k == 0xAA){
+            shifted = 0;
+        }
     }else{
-        if(scancode_list[k] == 0x0D){
-            kb_buffer[kb_read_buf_pntr] = '\n';
-            kb_read_buf_pntr++;
-        }else{
-            kb_buffer[kb_read_buf_pntr] = scancode_list[k];
-            kb_read_buf_pntr++;
+        if(shifted){
+            if(scancode_list[k] == 0x0D){
+                kb_buffer[kb_read_buf_pntr] = '\n';
+                kb_read_buf_pntr++;
+            }else{
+                kb_buffer[kb_read_buf_pntr] = scancode_shifted[k];
+                kb_read_buf_pntr++;
+            }
+        } else{
+            if(scancode_list[k] == 0x0D){
+                kb_buffer[kb_read_buf_pntr] = '\n';
+                kb_read_buf_pntr++;
+            }else if (k == 0x2A){
+                shifted = 1;
+            }else{
+                kb_buffer[kb_read_buf_pntr] = scancode_list[k];
+                kb_read_buf_pntr++;
+            }
         }
     }
     kb_buf_read();
