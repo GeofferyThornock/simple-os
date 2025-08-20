@@ -27,6 +27,9 @@ void enable_cursor(uint8_t cursor_start, uint8_t cursor_end)
     outb(0x3D5, (inb(0x3D5) & 0xE0) | cursor_end);
 }
 
+
+
+
 void update_cursor(int x, int y)
 {
 	uint16_t pos = y * VGA_WIDTH + x;
@@ -79,6 +82,10 @@ void terminal_setcolor(uint8_t color) {
 void terminal_putentryat(unsigned char c, uint8_t color, size_t x, size_t y) {
 	const size_t index = y * VGA_WIDTH + x;
 	terminal_buffer[index] = vga_entry(c, color);
+}
+
+void terminal_backspace() {
+    terminal_column--;
 }
 
 void terminal_putchar(char c) {

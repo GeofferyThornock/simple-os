@@ -1,6 +1,7 @@
 #include <kernel/isr.h>
 #include <kernel/pic.h>
 #include <kernel/io.h>
+#include <kernel/tty.h>
 #include <stdio.h>
 #include <kernel/keyboard.h>
 #include <stdlib.h>
@@ -372,7 +373,12 @@ void keyboard_callback(){
                 kb_read_buf_pntr++;
             }
         } else{
-            if(scancode_list[k] == 0x0D){
+            if(scancode_list[k] == 0x08){
+                kb_buffer[kb_read_buf_pntr] = 0x00;
+                kb_read_buf_pntr--;
+                kb_write_buf_pntr--;
+                terminal_backspace();
+            }else if(scancode_list[k] == 0x0D){
                 kb_buffer[kb_read_buf_pntr] = '\n';
                 kb_read_buf_pntr++;
             }else if (k == 0x2A){
