@@ -85,7 +85,8 @@ void terminal_putentryat(unsigned char c, uint8_t color, size_t x, size_t y) {
 }
 
 void terminal_backspace() {
-    terminal_column--;
+    terminal_putentryat(' ', terminal_color, terminal_column - 2, terminal_row);
+    update_cursor(terminal_column--, terminal_row + 1);
 }
 
 void terminal_putchar(char c) {
