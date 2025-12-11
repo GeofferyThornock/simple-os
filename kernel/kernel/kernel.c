@@ -11,19 +11,19 @@
 extern isr_t interrupt_handlers[];
 
 void init_descriptors(){
-    gdt_init();
-    idt_init();
-    memset(&interrupt_handlers, 0, sizeof(isr_t)*256);
+        gdt_init();
+        idt_init();
+        memset(&interrupt_handlers, 0, sizeof(isr_t)*256);
 }
- 
+
 
 void kernel_main(void) {
-    init_descriptors();
-	terminal_initialize();
+        init_descriptors();
+        terminal_initialize();
 
-    asm volatile("sti");
-    init_timer(50);
+        asm volatile("sti");
+        init_timer(50);
 
-    init_kb();
+        init_kb();
 }
 
