@@ -20,11 +20,11 @@ static uint16_t* terminal_buffer;
 
 void enable_cursor(uint8_t cursor_start, uint8_t cursor_end)
 {
-    outb(0x3D4, 0x0A);
-    outb(0x3D5, (inb(0x3D5) & 0xC0) | cursor_start);
+        outb(0x3D4, 0x0A);
+        outb(0x3D5, (inb(0x3D5) & 0xC0) | cursor_start);
 
-    outb(0x3D4, 0x0B);
-    outb(0x3D5, (inb(0x3D5) & 0xE0) | cursor_end);
+        outb(0x3D4, 0x0B);
+        outb(0x3D5, (inb(0x3D5) & 0xE0) | cursor_end);
 }
 
 
@@ -40,7 +40,8 @@ void update_cursor(int x, int y)
 	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
 }
 
-void terminal_initialize(void) {
+void terminal_initialize(void) 
+{
 	terminal_row = 0;
 	terminal_column = 0;
 	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
@@ -51,14 +52,13 @@ void terminal_initialize(void) {
 			terminal_buffer[index] = vga_entry(' ', terminal_color);
 		}
 	}
-    enable_cursor(0, 1);
+        enable_cursor(0, 1);
 }
 
 
 void scroll(){
     uint16_t atrByte = (0 << 4) | (15 & 0x0F);
     uint16_t blank = 0x20 | (atrByte << 8);
-
 
 
     if (terminal_row >= 25){

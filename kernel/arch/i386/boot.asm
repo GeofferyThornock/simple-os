@@ -58,9 +58,12 @@ _start:
     ; To set up a stack, we set the esp register to point to the top of our
 	; stack (as it grows downwards on x86 systems). This is necessarily done
 	; in assembly as languages such as C cannot function without a stack.
-    mov     esp, stack_top
+        mov     esp, stack_top
 
 
+        ;pushing the pointers to the multiboot information
+        PUSH    EBX
+        PUSH    EAX
 
 
 	; This is a good place to initialize crucial processor state before the
@@ -71,8 +74,10 @@ _start:
 	; yet. The GDT should be loaded here. Paging should be enabled here.
 	; C++ features such as global constructors and exceptions will require
 	; runtime support to work as well.
-    extern  _init
-    call    _init
+        extern  _init
+        call    _init
+
+
 
 	; Enter the high-level kernel. The ABI requires the stack is 16-byte
 	; aligned at the time of the call instruction (which afterwards pushes
@@ -80,8 +85,8 @@ _start:
 	; aligned above and we've since pushed a multiple of 16 bytes to the
 	; stack since (pushed 0 bytes so far) and the alignment is thus
 	; preserved and the call is well defined.
-    extern  kernel_main
-    call    kernel_main
+        extern  kernel_main
+        call    kernel_main
 
 
 	; If the system has nothing more to do, put the computer into an
